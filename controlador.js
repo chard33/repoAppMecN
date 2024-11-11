@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
     res.send("Api implementada!")
 })
 
-app.post("/cartas", (req, res) => {
+app.post("/registro", (req, res) => {
     const { clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra } = req.body;  // Extraer datos del cuerpo de la solicitud
 
     if (!clienteId || !nombre || !apellidoP || !apellidoM || !sexo || !edad || !telefono || !email || !sucursal || !contra) {
