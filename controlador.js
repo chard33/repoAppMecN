@@ -27,7 +27,7 @@ app.post("/registro", (req, res) => {
         return res.status(400).json({ error: "Faltan campos obligatorios" })
     }
 
-    const sql = "INSERT INTO `clientes` (id_cliente, nombre, apellido_paterno, apellido_materno, sexo, edad, celular, email, sucursal, contrasena) VALUES (?, ?, ?)"
+    const sql = "INSERT INTO `clientes` (id_cliente, nombre, apellido_paterno, apellido_materno, sexo, edad, celular, email, sucursal, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
     const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra]
 
