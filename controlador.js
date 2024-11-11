@@ -24,7 +24,17 @@ app.post("/registro", (req, res) => {
     const { clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra } = req.body;  // Extraer datos del cuerpo de la solicitud
 
     if (!clienteId || !nombre || !apellidoP || !apellidoM || !sexo || !edad || !telefono || !email || !sucursal || !contra) {
-        return res.status(400).json({ error: "Faltan campos obligatorios" })
+        return res.status(400).json({ error: `
+            Faltan campos obligatorios ${clienteId} - 
+            ${nombre} - 
+            ${apellidoP} - 
+            ${apellidoM} - 
+            ${sexo} - 
+            ${edad} - 
+            ${telefono} - 
+            ${email} - 
+            ${sucursal} - 
+            ${contra}` })
     }
 
     const sql = "INSERT INTO `clientes` (id_cliente, nombre, apellido_paterno, apellido_materno, sexo, edad, celular, email, sucursal, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
