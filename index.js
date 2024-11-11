@@ -1,14 +1,12 @@
-const express = require('express');
-const regCliente = require('./controlador.js');
+const app = require('./controlador');
 
-const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json()); // Middleware para parsear JSON
+// app.use(express.json()); // Middleware para parsear JSON
 
-// Ruta para insertar un cliente
-app.post('/registro', regCliente);
+// // Ruta para insertar un cliente
+// app.post('/registro', regCliente);
 
 app.listen(PORT, () => {
-    console.log(`Servidor en funcionamiento en: ${PORT}`);
+    console.log(`Iniciando en el puerto: ${PORT}`);
 });
