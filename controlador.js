@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require('cors');
 const conexion = require("./conexion")
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const app = express()
 
 const corsOptions = {
@@ -49,7 +49,7 @@ bcrypt.hash(contra, saltRounds, (err, hashedPassword) => {
         return res.status(500).json({ status: 'error', message: "Error encriptando la contraseña" });
     }
 
-    contra = hashedPassword;
+    const contra = hashedPassword;
 
     // Asigna el valor de la contraseña encriptada a la consulta
     const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra];
