@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require('cors');
 const conexion = require("./conexion")
+const bcrypt = require('bcrypt');
 const app = express()
 
 const corsOptions = {
@@ -39,8 +40,19 @@ app.post("/registro", (req, res) => {
 
     const sql = "INSERT INTO `clientes` (id_cliente, nombre, apellido_paterno, apellido_materno, sexo, edad, celular, email, sucursal, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-    const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra]
+    const saltRounds = 10;  // Número de rondas de sal para encriptar
 
+    // Encriptar la contraseña antes de la inserción
+bcrypt.hash(contra, saltRounds, (err, hashedPassword) => {
+    if (err) {
+        console.error("Error encriptando la contraseña:", err);
+        return res.status(500).json({ status: 'error', message: "Error encriptando la contraseña" });
+    }
+
+    // Asigna el valor de la contraseña encriptada a la consulta
+    const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, hashedPassword];
+
+    // Ejecutar la consulta con la contraseña encriptada
     conexion.query(sql, values, (err, result) => {
         if (err) {
             console.error('Error en la consulta:', err);
@@ -48,7 +60,8 @@ app.post("/registro", (req, res) => {
         }
 
         res.json({ status: 'success', message: 'Datos insertados correctamente' });
-    })
+    });
+});
 })
 
 module.exports = app;
