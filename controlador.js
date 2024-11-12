@@ -49,8 +49,10 @@ bcrypt.hash(contra, saltRounds, (err, hashedPassword) => {
         return res.status(500).json({ status: 'error', message: "Error encriptando la contraseña" });
     }
 
+    contra = hashedPassword;
+
     // Asigna el valor de la contraseña encriptada a la consulta
-    const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, hashedPassword];
+    const values = [clienteId, nombre, apellidoP, apellidoM, sexo, edad, telefono, email, sucursal, contra];
 
     // Ejecutar la consulta con la contraseña encriptada
     conexion.query(sql, values, (err, result) => {
